@@ -10,7 +10,9 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container />
+    <Container :postdata="postdata"/>
+
+    <button v-on:click="more">더보기</button>
 
     <div class="footer">
       <ul class="footer-button-plus">
@@ -23,16 +25,29 @@
 
 <script>
 
-import Container from "@/components/Container";
+import Container from "@/components/Container"
+import postdata from "@/assets/postdata.js"
+import axios from "axios";
+
 export default {
   name: 'App',
   data() {
     return {
-
+      postdata : postdata,
     }
   },
   components: {
     Container
+  },
+  methods: {
+    more() {
+      axios.get('https://codingapple1.github.io/vue/more1.json')
+      .then((result) => {
+        this.postdata.push(result.data);
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
   }
 }
 

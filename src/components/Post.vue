@@ -1,14 +1,14 @@
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="profile"></div>
-      <span class="profile-name">Kim</span>
+      <div class="profile" :style="{ backgroundImage : `url(${post.userImage})` }"></div>
+      <span class="profile-name">{{post.name}}</span>
     </div>
-    <div class="post-body"></div>
+    <div class="post-body" :style="{ backgroundImage : `url(${post.postImage})` }"></div>
     <div class="post-content">
-      <p>43 Likes</p>
-      <p><strong>글쓴이</strong> 임시내용</p>
-      <p class="date">May 15</p>
+      <p>{{post.likes}} Likes</p>
+      <p><strong>글쓴이</strong>{{post.content}}</p>
+      <p class="date">{{post.date}}</p>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 export default {
   name: "Post",
   props:{
-
+    post : Object,
   },
 }
 
