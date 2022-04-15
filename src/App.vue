@@ -10,7 +10,7 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :postdata="postdata"/>
+    <Container :postdata="postdata" :tab="tab"/>
 
     <button v-on:click="more">더보기</button>
 
@@ -20,6 +20,11 @@
         <label for="file" class="input-plus">+</label>
       </ul>
     </div>
+
+    <div></div>
+    <div></div>
+    <div></div>
+
   </div>
 </template>
 
@@ -33,6 +38,7 @@ export default {
   name: 'App',
   data() {
     return {
+      tab : 0,
       postdata : postdata,
     }
   },
