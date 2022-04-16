@@ -5,7 +5,7 @@
     </div>
 
     <div v-else-if="tab==1" >
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{ backgroundImage : `url(${inputImg.url})`}"></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -36,6 +36,7 @@ export default {
   props:{
     postdata : Array,
     tab : Number,
+    inputImg : Object,
   },
 }
 </script>

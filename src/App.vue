@@ -10,13 +10,13 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :postdata="postdata" :tab="tab"/>
+    <Container :postdata="postdata" :tab="tab" :inputImg="inputImg" />
 
     <button v-on:click="more">더보기</button>
 
     <div class="footer">
       <ul class="footer-button-plus">
-        <input type="file" id="file" class="inputfile" />
+        <input type="file" id="file" class="inputfile" v-on:change="upload"/>
         <label for="file" class="input-plus">+</label>
       </ul>
     </div>
@@ -40,6 +40,8 @@ export default {
     return {
       tab : 0,
       postdata : postdata,
+      inputImg : Object,
+
     }
   },
   components: {
@@ -54,6 +56,13 @@ export default {
         console.log(err);
       });
     },
+    upload(e) {
+      let files = e.target.files;
+      this.inputImg = files[0];
+      this.$set(this.inputImg, 'url', URL.createObjectURL(files[0]));
+
+      this.tab = 1;
+    }
   }
 }
 
