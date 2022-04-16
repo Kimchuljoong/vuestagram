@@ -5,7 +5,7 @@
     </div>
 
     <div v-else-if="tab==1" >
-      <div class="upload-image" :style="{ backgroundImage : `url(${inputImg.url})`}"></div>
+      <div class="upload-image" :style="{ backgroundImage : `url(${newPost.postImage})`}"></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -16,9 +16,9 @@
     </div>
 
     <div v-else-if="tab==2">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{ backgroundImage : `url(${newPost.postImage})`}"></div>
       <div class="write">
-        <textarea class="write-box">write!</textarea>
+        <textarea class="write-box" v-on:input="$emit('write', $event.target.value)"></textarea>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
   props:{
     postdata : Array,
     tab : Number,
-    inputImg : Object,
+    newPost : Object,
   },
 }
 </script>

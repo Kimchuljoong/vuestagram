@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <div class="header">
-      <ul class="header-button-left">
-        <li>Cancel</li>
-      </ul>
-      <ul class="header-button-right">
-        <li>Next</li>
-      </ul>
+      <div v-if="tab!=0">
+        <ul class="header-button-left">
+          <li>Cancel</li>
+        </ul>
+        <ul class="header-button-right">
+          <li v-if="tab==1" v-on:click="tab++">Next</li>
+          <li v-if="tab==2" v-on:click="post">Submit</li>
+        </ul>
+      </div>
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :postdata="postdata" :tab="tab" :inputImg="inputImg" />
+    <Container :postdata="postdata" :tab="tab" :newPost="newPost" @write="newPost.content = $event"/>
 
     <button v-on:click="more">더보기</button>
 
@@ -41,13 +44,30 @@ export default {
       tab : 0,
       postdata : postdata,
       inputImg : Object,
-
+      newPost : {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: "",
+        likes: 71,
+        date: "April 15",
+        liked: false,
+        content: "",
+        filter: "perpetua"
+      },
     }
   },
   components: {
     Container
   },
   methods: {
+    post() {
+      let postData = this.newPost;
+
+      this.postdata.unshift(postData);
+      this.tab = 0;
+
+      this.newPost = {};
+    },
     more() {
       axios.get('https://codingapple1.github.io/vue/more1.json')
       .then((result) => {
@@ -58,8 +78,7 @@ export default {
     },
     upload(e) {
       let files = e.target.files;
-      this.inputImg = files[0];
-      this.$set(this.inputImg, 'url', URL.createObjectURL(files[0]));
+      this.$set(this.newPost, 'postImage', URL.createObjectURL(files[0]));
 
       this.tab = 1;
     }
